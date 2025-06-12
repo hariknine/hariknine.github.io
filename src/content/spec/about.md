@@ -30,6 +30,6 @@ If you know this scene then you'll remember Daft Punk blaring the `The Son of Fl
 ---
 Let's get back on track. I love getting challenging tasks and being hyperfocused on them. DevOps is such an wide area that there are always better tools and methods to improve the current approach, this complements the work I do since it's possible to always improve on oneself and the task at hand. It's similar to how riding a motorcycle works - you're constantly getting new scenarios and roadblocks which you have to overcome. You're constantly learning, improving, testing and improvising. And the satisfaction of automating things as much as possible is a bonus.
 
-This doesn't mean it's the ultimate area to work in. It's equal to every other part of a product's development. It only complements everything else. So currently I'm on the track of learning - primarily the development side of a product to understand it better and to help with the infrastructure design more. Since the most used language in DevOps tools in [Go](https://go.dev/), it's what I chose to learn. 
+This doesn't mean it's the ultimate area to work in. It's equal to every other part of a product's development. It only complements everything else. So currently I'm on the track of learning - primarily the development side of a product to understand it better and to help with the infrastructure design more.
 
 This site is where I will be updating the progress and projects along with the journey in any of the areas above.
