@@ -62,6 +62,11 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-brands:github",
 			url: "https://github.com/hariknine",
 		},
+		{
+			name: "Linkedin",
+			icon: "fa6-brands:linkedin-in",
+			url: "https://www.linkedin.com/in/harikrishnan-a-nair/",
+		},
 	],
 };
 
