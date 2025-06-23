@@ -7,6 +7,8 @@ category: Docs
 draft: false
 prevTitle: "GKE + Workload Identity Setup"
 prevSlug: "gke-workload-identity"
+nextTitle: "Cert-Manager + Route53 Setup"
+nextSlug: "cert-manager"
 ---
 
 After getting started with `AWS` and then `EKS`, the requirement I got was to let certain workloads in the K8s cluster access certain AWS Workloads. First I created an IAM User and [IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html). This worked but if anyone else gets the keys somehow, they can have the same access as the IAM User the keys are associated with. This can be avoided by rotating the keys but this just delays the problem rather than avoiding it.
