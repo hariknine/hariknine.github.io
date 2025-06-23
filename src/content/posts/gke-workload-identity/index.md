@@ -5,14 +5,14 @@ description: Guide to Setup Workload Identity in GKE Workloads
 tags: [GKE, GCP, Kubernetes]
 category: Docs
 draft: false
-prevTitle: "AWS IAM Roles for Service Accounts"
-prevSlug: "aws-irsa"
+nextTitle: "EKS + IRSA Setup"
+nextSlug: "aws-irsa"
 ---
 Setting up Workload Identity in GKE workloads was one of the first things I had to deal with in `GKE`. I primarily worked on `EKS` until then, where we moved from using IAM users with [IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) to [IRSA (IAM Roles for Service Accounts)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). Just like AWS, at first I started with the [GCP Service Account Key](https://cloud.google.com/iam/docs/keys-create-delete), which has the same drawbacks as AWS IAM Access Keys or any similar methods i.e. the keys need to be rotated to ensure safety and even so it poses the risk of falling into the wrong hands. So we found out about Workload Identity in GKE and implemented it. This is guide on how it's done.
 
 ## GCP Service Account
 
-We'll need a GCP Service Account with the necessary permissions. For testing we'll assign `roles/storage.bucketViewer` for list aaccess to storage buckets
+We'll need a GCP Service Account with the necessary permissions. For testing we'll assign `roles/storage.bucketViewer` for list access to storage buckets
 
 1. Create a GCP Service Account
 ```zsh showLineNumbers=false frame=none
@@ -45,15 +45,15 @@ If the nodepools are created after Workload Identity is enabled in the cluster, 
 The GSA and GKE Cluster are setup correctly now. Next we need to let the Kubernetes workload list the storage buckets.
 1. Bind the GSA to the KSA (Kubernetes Service Account)
 ```zsh showLineNumbers=false frame=none
-gcloud iam service-accounts add-iam-policy-binding --role="roles/iam.workloadIdentityUser" --member="serviceAccount:PROJECT_ID.svc.id.goog[NAMESPACE/KSA_NAME]" GSA_NAME@PROJECT_ID.iam.gserviceaccount.com --project PROJECT_ID
+gcloud iam service-accounts add-iam-policy-binding --role="roles/iam.workloadIdentityUser" --member="serviceAccount:PROJECT_ID.svc.id.goog[K8S_NAMESPACE/K8S_SA]" GSA_NAME@PROJECT_ID.iam.gserviceaccount.com --project PROJECT_ID
 ```
 2. Create yaml for a sample kubernetes pod and a service account. The annotation `iam.gke.io/gcp-service-account: YOUR-GCP-SA@YOUR-PROJECT.iam.gserviceaccount.com` lets GKE mount a token into the pod, which lets us access the GCP resources by impersonating the account
 ```yaml title=workload-identity.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: KSA_NAME
-  namespace: NAMESPACE
+  name: K8S_SA
+  namespace: K8S_NAMESPACE
   annotations:
     iam.gke.io/gcp-service-account: GSA_NAME@PROJECT_ID.iam.gserviceaccount.com
 ---
@@ -61,9 +61,9 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: gcloud-cli-pod
-  namespace: NAMESPACE
+  namespace: K8S_NAMESPACE
 spec:
-  serviceAccountName: KSA_NAME
+  serviceAccountName: K8S_SA
   containers:
   - name: gcloud-cli
     image: gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
@@ -76,7 +76,7 @@ kubectl apply -f workload-identity.yaml
 ```
 4. Once the pod is up, exec into the pod
 ```zsh showLineNumbers=false frame=none
-kubectl -n NAMESPACE exec gcloud-cli-pod -it -- bash
+kubectl -n K8S_NAMESPACE exec gcloud-cli-pod -it -- bash
 ```
 5. Try to list the storage buckets in the GCP Project
 ```zsh showLineNumbers=false frame=none
