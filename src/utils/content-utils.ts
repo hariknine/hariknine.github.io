@@ -14,13 +14,16 @@ export async function getSortedPosts() {
 		return dateA > dateB ? -1 : 1;
 	});
 
-	for (let i = 1; i < sorted.length; i++) {
-		sorted[i].data.prevSlug = sorted[i - 1].slug;
-		sorted[i].data.prevTitle = sorted[i - 1].data.title;
-	}
 	for (let i = 0; i < sorted.length - 1; i++) {
-		sorted[i].data.nextSlug = sorted[i + 1].slug;
-		sorted[i].data.nextTitle = sorted[i + 1].data.title;
+		const curr = sorted[i];
+		const next = sorted[i + 1];
+		if (curr.data.nextTitle || next.data.prevTitle) {
+			continue;
+		}
+		curr.data.nextSlug = next.slug;
+		curr.data.nextTitle = next.data.title;
+		next.data.prevSlug = curr.slug;
+		next.data.prevTitle = curr.data.title;
 	}
 
 	return sorted;
