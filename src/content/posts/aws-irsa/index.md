@@ -7,8 +7,8 @@ category: Docs
 draft: false
 prevTitle: "GKE + Workload Identity Setup"
 prevSlug: "gke-workload-identity"
-nextTitle: "Cert-Manager + Route53 Setup"
-nextSlug: "cert-manager"
+nextTitle: "Ingress-Nginx + EKS Setup"
+nextSlug: "ingress-nginx-eks"
 ---
 
 After getting started with `AWS` and then `EKS`, the requirement I got was to let certain workloads in the K8s cluster access certain AWS Workloads. First I created an IAM User and [IAM Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html). This worked but if anyone else gets the keys somehow, they can have the same access as the IAM User the keys are associated with. This can be avoided by rotating the keys but this just delays the problem rather than avoiding it.
@@ -19,7 +19,7 @@ This is guide on how it's done.
 
 ## AWS IAM Role
 1. Get the OIDC url from the EKS cluster
-```zsh
+```zsh showLineNumbers=false frame=none
 export OIDC_PROVIDER=$(aws eks describe-cluster --name EKS_CLUSTER_NAME --query "cluster.identity.oidc.issuer" --output text | cut -d'/' -f3-)
 ```
 :::note
@@ -29,7 +29,7 @@ Make sure there's an OIDC url associated with the EKS cluster - [Ref](https://do
 	* `ACCOUNT_ID` - AWS Account ID
 	* `K8S_NAMESPACE` - The Kubernetes namespace where the workload will be
 	* `K8S_SA` - The Kubernetes Service Account associated with the workload
-```zsh
+```zsh showLineNumbers=false frame=none
 cat <<EOF > trust-policy.json
 {
     "Version": "2012-10-17",
@@ -52,11 +52,11 @@ cat <<EOF > trust-policy.json
 EOF
 ```
 3. Create the IAM Role and get the Arn
-```zsh
+```zsh showLineNumbers=false frame=none
 export IAM_ROLE_ARN=$(aws iam create-role --role-name IAM_ROLE_NAME --assume-role-policy-document file://trust-policy.json --query "Role.Arn" --output text)
 ```
 4. Create IAM Policy Json. This policy allows listing all the buckets in the account.
-```zsh
+```zsh showLineNumbers=false frame=none
 cat <<EOF > iam-policy-policy.json
 {
     "Version": "2012-10-17",
@@ -76,11 +76,11 @@ EOF
 Avoid using broad permissions like `s3:ListAllMyBuckets` and wildcard resources (`*`) as this can give wide access to resources that should remain restricted. We're only using this for test purposes
 :::
 5. Create IAM Policy and get the Arn
-```zsh
+```zsh showLineNumbers=false frame=none
 export IAM_POLICY_ARN=$(aws iam create-policy --policy-name IAM_POLICY_NAME  --policy-document file://iam-policy-policy.json --query "Policy.Arn" --output text)
 ```
 6. Attach the IAM Policy to the IAM Role we created 
-```zsh
+```zsh showLineNumbers=false frame=none
 aws iam attach-role-policy --policy-arn $IAM_POLICY_ARN --role-name IAM_ROLE_NAME
 ```
 
