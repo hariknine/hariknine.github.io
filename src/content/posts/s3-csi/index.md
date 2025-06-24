@@ -1,6 +1,6 @@
 ---
 title: S3 CSI setup in EKS
-published: 2025-06-24
+published: 2025-06-25
 description: Guide to Setup S3 CSI driver in EKS
 tags: [EKS, AWS, Kubernetes]
 category: Docs

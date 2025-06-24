@@ -5,7 +5,7 @@ description: Guide to Setup Cert-Manager with DNS01 verification in Route53
 tags: [AWS, Kubernetes]
 category: Docs
 draft: false
-prevTitle: "EKS + IRSA Setup"
+prevTitle: "Ingress-Nginx + EKS Setup"
 prevSlug: "aws-irsa"
 nextTitle: "S3 CSI setup in EKS"
 nextSlug: "s3-csi"
