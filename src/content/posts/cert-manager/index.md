@@ -7,8 +7,8 @@ category: Docs
 draft: false
 prevTitle: "Ingress-Nginx + EKS Setup"
 prevSlug: "aws-irsa"
-nextTitle: "EKS Automode setup using Terraform"
-nextSlug: "eks-automode"
+nextTitle: "Hashicorp Vault setup with KMS"
+nextSlug: "vault-kms"
 ---
 After setting up `ingress-nginx` with an ACM certificate in EKS clusters, we also needed to set up `ingress-nginx` in `GKE` and `AKS` clusters, which was easy since we just needed to use the default `ingress-nginx` helm chart to deploy to whichever cluster as required. But TLS was an issue.
 
