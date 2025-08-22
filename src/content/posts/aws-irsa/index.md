@@ -57,7 +57,7 @@ export IAM_ROLE_ARN=$(aws iam create-role --role-name IAM_ROLE_NAME --assume-rol
 ```
 4. Create IAM Policy Json. This policy allows listing all the buckets in the account.
 ```zsh showLineNumbers=false frame=none
-cat <<EOF > iam-policy-policy.json
+cat <<EOF > iam-policy.json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -77,7 +77,7 @@ Avoid using broad permissions like `s3:ListAllMyBuckets` and wildcard resources 
 :::
 5. Create IAM Policy and get the Arn
 ```zsh showLineNumbers=false frame=none
-export IAM_POLICY_ARN=$(aws iam create-policy --policy-name IAM_POLICY_NAME  --policy-document file://iam-policy-policy.json --query "Policy.Arn" --output text)
+export IAM_POLICY_ARN=$(aws iam create-policy --policy-name IAM_POLICY_NAME  --policy-document file://iam-policy.json --query "Policy.Arn" --output text)
 ```
 6. Attach the IAM Policy to the IAM Role we created 
 ```zsh showLineNumbers=false frame=none

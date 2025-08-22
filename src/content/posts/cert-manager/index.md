@@ -12,7 +12,7 @@ nextSlug: "vault-kms"
 ---
 After setting up `ingress-nginx` with an ACM certificate in EKS clusters, we also needed to set up `ingress-nginx` in `GKE` and `AKS` clusters, which was easy since we just needed to use the default `ingress-nginx` helm chart to deploy to whichever cluster as required. But TLS was an issue.
 
-Solution - since the domain is managed in `Amazon Route 53`, we can use `cert-manager` with `DNS01` challenge to get TLS working along with Route53 in any cluster, regardless of the cloud provider. Here we'll see the steps required for this setup. DNS01 challenge essentially involves you proving you own the domain by creating a TXT record, which is then checked by the CA (here it will be [Let's Encrypt](https://letsencrypt.org/)) and once verified you're given the TLS cert. For more details - [refer](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge)
+Solution - since the domain is managed in `Amazon Route 53`, we can use `cert-manager` with `DNS01` challenge to get TLS working along with Route53 in any cluster, regardless of the cloud provider. Here we'll see the steps required for this setup. DNS01 challenge essentially involves you proving you own the domain by creating a TXT record, which is then checked by the CA (here it will be [Let's Encrypt](https://letsencrypt.org/)) and once verified you're given the TLS cert. For more details - [Ref](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge)
 
 ## AWS setup
 1. Create the IAM user to be used by `cert-manager`
