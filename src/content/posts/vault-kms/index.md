@@ -7,8 +7,6 @@ category: Docs
 draft: false
 prevTitle: "Cert-Manager + Route53 Setup"
 prevSlug: "cert-manager"
-nextTitle: "Hashicorp Vault setup with KMS"
-nextSlug: "vault-kms"
 ---
 For storing and accessing sensitive data like credentials, tokens, etc. we used the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/managing-secrets.html) extensively whenever AWS is involved. This was in pair with the [External Secrets Operator](https://external-secrets.io), to make K8s secrets and keep them updated whenever there are changes in the copy stored in the Secrets Manager. We also use it to store non K8s sensitive data.
 
