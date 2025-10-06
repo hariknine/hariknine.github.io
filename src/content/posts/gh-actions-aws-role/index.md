@@ -4,7 +4,7 @@ published: 2025-10-06
 description: Guide to access AWS resources from GitHub Actions with AWS IAM Role
 tags: [GitHub, AWS, ECR]
 category: Docs
-draft: true
+draft: false
 prevTitle: "External Secrets Operator with Vault & AWS Secrets Manager"
 prevSlug: "external-secrets"
 ---
