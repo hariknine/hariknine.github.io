@@ -7,6 +7,8 @@ category: Docs
 draft: false
 prevTitle: "Hashicorp Vault setup with KMS"
 prevSlug: "vault-kms"
+nextTitle: "GitHub actions with AWS IAM Role"
+nextSlug: "gh-actions-aws-role"
 ---
 [External Secrets Operator](https://external-secrets.io) is a tool we used to create and sync Kubernetes Secrets with Secret Managers like the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/managing-secrets.html) and [Hashicorp Vault](https://developer.hashicorp.com/vault). It lets you create Kubernetes secrets using custom resources like [ExternalSecret](https://external-secrets.io/v0.4.4/api-externalsecret/) and keeps it in sync if needed with different secret sources. Here we'll see how to set this up in a Kubernetes cluster.
 
