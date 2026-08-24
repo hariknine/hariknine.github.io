@@ -98,7 +98,7 @@ export IAM_POLICY_ARN=$(aws iam create-policy --policy-name vault-policy --polic
 ```
 9. Attach the IAM Policy to the IAM Role we created 
 ```zsh showLineNumbers=false frame=none
-aws iam attach-role-policy --policy-arn vault-policy --role-name vault-role
+aws iam attach-role-policy --policy-arn $IAM_POLICY_ARN --role-name vault-role
 ```
 10. Create Vault helm chart values file:
 ```yaml title=vault-values.yaml

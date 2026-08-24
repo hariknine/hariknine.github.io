@@ -1,6 +1,6 @@
 ---
 title: GPU Partitioning on GKE
-published: 2025-10-10
+published: 2025-11-20
 description: Guide to Partition GPU nodes on GKE - MIG and Time-Slicing
 tags: [GKE, Kubernetes, GPU]
 category: Docs
@@ -14,7 +14,9 @@ GPU sharing in Kubernetes denotes paritioning GPU nodes (software or hardware le
 * [MPS](#mps)
 
 # MIG
-
+This is a hardware-level partitioning method, primarily available in data center GPUs - 
+* `AWS` - A100, H100, B200, GB200 - [Ref](https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html)
+* `GKE` - A100, H100, H200 B200, GB200, RTX PRO 6000 - [Ref](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/gpus-multi#supported_gpus)
 # Time-Slicing
 
 # MPS
